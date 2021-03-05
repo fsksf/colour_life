@@ -1,4 +1,4 @@
-# colour_life
+# front_end
 
 > A Vue.js project
 
