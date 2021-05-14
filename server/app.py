@@ -8,6 +8,12 @@ import tornado.ioloop
 import tornado.web
 
 
+settings = {
+    "cookie_secret": "__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
+    "login_url": "/login",
+}
+
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("Hello, world")
@@ -16,4 +22,4 @@ class MainHandler(tornado.web.RequestHandler):
 def make_app():
     return tornado.web.Application([
         (r"/", MainHandler),
-    ])
+    ], **settings)
