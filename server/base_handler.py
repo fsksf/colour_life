@@ -38,7 +38,16 @@ class LogonHander(BaseHandler):
         name = self.get_body_argument('name')
         password = self.get_body_argument('password')
 
-        DBUtil.insert(User, {User.name: name, User.password: password})
+        DBUtil.insert(User, [{'name': name, 'password': password}])
+        self.redirect('/login')
+
+    def get(self):
+        self.write('<html><body><form action="/logon" method="post">'
+                   'Name: <input type="text" name="name">'
+                   'Password: <input type="text" name="password">'
+                   '<input type="submit" value="Sign on">'
+                   '</form></body></html>')
+
 
 class LoginHandler(BaseHandler):
 
@@ -57,7 +66,7 @@ class LoginHandler(BaseHandler):
         password = self.get_body_argument('password')
         user = DBUtil.select(query_list=[User], filter_list=[User.name == name])
         if user:
-            if user[0]['password'] == password:
-                self.set_secure_cookie("user", self.get_argument("name"))
+            if user[0].password == password:
+                self.set_secure_cookie("user", name)
                 self.redirect("/")
-        return "password error"
+        self.write("password error")

@@ -6,18 +6,13 @@
 """
 import tornado.ioloop
 import tornado.web
-from server.base_handler import BaseHandler, LoginHandler, LogonHander
+from server.base_handler import BaseHandler, LoginHandler, LogonHander, MainHandler
 
 
 settings = {
     "cookie_secret": "__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
     "login_url": "/login",
 }
-
-
-class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.write("Hello, world")
 
 
 def make_app():

@@ -8,6 +8,7 @@ from alembic import context
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from server.db import Base, SQLALCHEMY_DATABASE_URI
+from server.model import *
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

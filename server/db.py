@@ -37,7 +37,7 @@ class DBConnect:
 class DBUtil:
 
     @staticmethod
-    def select(query_list: list, filter_list: list, obj_type='dict'):
+    def select(query_list: list, filter_list: list, obj_type='obj'):
         with DBConnect() as s:
             data = s.query(*query_list).filter(*filter_list).all()
             if obj_type == 'dict':
