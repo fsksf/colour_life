@@ -18,6 +18,7 @@ class Sex(enum.Enum):
 class User(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(30), comment='昵称')
+    password = Column(String(100), comment='密钥')
     phone = Column(String(11), comment='电话')
     sex = Column(Enum(Sex), comment='性别')
     wechat_code = Column(String(30), comment='绑定微信')

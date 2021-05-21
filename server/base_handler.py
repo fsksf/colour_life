@@ -11,6 +11,9 @@ import tornado
 import tornado.web
 import tornado.escape
 
+from .db import DBUtil
+from .model import User
+
 
 class BaseHandler(tornado.web.RequestHandler, ABC):
     def get_current_user(self):
@@ -29,6 +32,14 @@ class MainHandler(BaseHandler):
         self.write("Hello, " + name)
 
 
+class LogonHander(BaseHandler):
+
+    def post(self):
+        name = self.get_body_argument('name')
+        password = self.get_body_argument('password')
+
+        DBUtil.insert(User, {User.name: name, User.password: password})
+
 class LoginHandler(BaseHandler):
 
     def data_received(self, chunk: bytes) -> Optional[Awaitable[None]]:
@@ -37,9 +48,16 @@ class LoginHandler(BaseHandler):
     def get(self):
         self.write('<html><body><form action="/login" method="post">'
                    'Name: <input type="text" name="name">'
+                   'Password: <input type="text" name="password">'
                    '<input type="submit" value="Sign in">'
                    '</form></body></html>')
 
     def post(self):
-        self.set_secure_cookie("user", self.get_argument("name"))
-        self.redirect("/")
+        name = self.get_body_argument('name')
+        password = self.get_body_argument('password')
+        user = DBUtil.select(query_list=[User], filter_list=[User.name == name])
+        if user:
+            if user[0]['password'] == password:
+                self.set_secure_cookie("user", self.get_argument("name"))
+                self.redirect("/")
+        return "password error"

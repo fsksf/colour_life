@@ -145,3 +145,5 @@ front_end/selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
+
+alembic_dir/versions

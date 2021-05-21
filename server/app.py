@@ -6,7 +6,7 @@
 """
 import tornado.ioloop
 import tornado.web
-from server.base_handler import BaseHandler, LoginHandler
+from server.base_handler import BaseHandler, LoginHandler, LogonHander
 
 
 settings = {
@@ -23,5 +23,6 @@ class MainHandler(tornado.web.RequestHandler):
 def make_app():
     return tornado.web.Application([
         (r"/", MainHandler),
-        (r"/login", LoginHandler)
+        (r"/login", LoginHandler),
+        (r"/logon", LogonHander)
     ], **settings)
