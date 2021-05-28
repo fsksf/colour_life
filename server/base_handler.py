@@ -69,4 +69,5 @@ class LoginHandler(BaseHandler):
             if user[0].password == password:
                 self.set_secure_cookie("user", name)
                 self.redirect("/")
+                return
         self.write("password error")
