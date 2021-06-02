@@ -5,7 +5,7 @@
 @since: 2021/5/14 6:50 PM
 """
 import enum
-from sqlalchemy import Column, Integer, String, BIGINT, Enum
+from sqlalchemy import Column, Integer, String, BIGINT, Enum, DATETIME
 from server.db import Base
 
 
@@ -19,6 +19,7 @@ class BillboardType(enum.Enum):
 class ElectronicBillboard(Base):
     id = Column(BIGINT)
     title = Column(name='title', comment='公告标题', type_=String(50))
+    dt = Column(DATETIME, name='dt', comment='发帖时间')
     user_id = Column(Integer, comment='用户id')
     type_ = Column(Enum(BillboardType), comment='所属分类')
     comment = Column(String(1000), comment='内容')

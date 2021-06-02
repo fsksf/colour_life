@@ -5,9 +5,10 @@
 @since: 2021/5/19 5:35 PM
 """
 
-
+import os
 import inspect
 import types
+from server import HANDLERS
 
 
 class OpenApiDecorate:
@@ -27,3 +28,14 @@ class OpenApiDecorate:
         _api_func.__api_description = _description
 
         return _api_func
+
+
+def add_handler(path, prefix=None):
+    def wp(handler):
+        if prefix is not None:
+            _path = os.path.join(prefix, path)
+        else:
+            _path = path
+        HANDLERS.append((_path, handler))
+        return handler
+    return wp

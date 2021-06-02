@@ -13,6 +13,7 @@ import tornado.escape
 
 from .db import DBUtil
 from .model import User
+from .api_util import add_handler
 
 
 class BaseHandler(tornado.web.RequestHandler, ABC):
@@ -20,6 +21,7 @@ class BaseHandler(tornado.web.RequestHandler, ABC):
         return self.get_secure_cookie("user")
 
 
+@add_handler(path=r'/')
 class MainHandler(BaseHandler):
     def data_received(self, chunk: bytes) -> Optional[Awaitable[None]]:
         pass
@@ -32,6 +34,7 @@ class MainHandler(BaseHandler):
         self.write("Hello, " + name)
 
 
+@add_handler(path=r'/logon')
 class LogonHander(BaseHandler):
 
     def post(self):
@@ -49,6 +52,7 @@ class LogonHander(BaseHandler):
                    '</form></body></html>')
 
 
+@add_handler(path=r'/login')
 class LoginHandler(BaseHandler):
 
     def data_received(self, chunk: bytes) -> Optional[Awaitable[None]]:
