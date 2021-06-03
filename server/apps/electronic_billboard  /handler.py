@@ -18,6 +18,7 @@ PREFIX = 'board'
 class BoardListHandler(BaseHandler):
 
     def get(self):
+        self.get_query_argument(name='')
         DBUtil.select([ElectronicBillboard, ], filter_list=[])
 
 

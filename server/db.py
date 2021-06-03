@@ -37,9 +37,18 @@ class DBConnect:
 class DBUtil:
 
     @staticmethod
-    def select(query_list: list, filter_list: list, obj_type='obj'):
+    def select(query_list: list, filter_list: list, obj_type='obj', order_by=None, reverse=False, start=None, limit=None):
         with DBConnect() as s:
-            data = s.query(*query_list).filter(*filter_list).all()
+            query = s.query(*query_list).filter(*filter_list)
+            if order_by is not None:
+                if reverse:
+                    query = query.order_by(desc(order_by))
+                else:
+                    query = query.order_by(order_by)
+            if start or limit:
+                query = query.slice(start, limit)
+
+            data = query.all()
             if obj_type == 'dict':
                 if data and isinstance(data[0], Base):
                     data = [d.to_dict() for d in data]
