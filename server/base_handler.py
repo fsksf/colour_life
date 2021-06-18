@@ -75,3 +75,9 @@ class LoginHandler(BaseHandler):
                 self.redirect("/")
                 return
         self.write("password error")
+
+
+@add_handler(path=r'/about')
+class AboutHandler(BaseHandler):
+    def get(self):
+        self.write('about!')

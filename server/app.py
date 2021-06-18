@@ -13,7 +13,7 @@ from server import HANDLERS
 
 settings = {
     "cookie_secret": secrets.token_urlsafe(30),
-    "login_url": "/login",
+    "login_url": "/login"
 }
 
 
