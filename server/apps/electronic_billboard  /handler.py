@@ -11,10 +11,11 @@ from server.db import DBUtil
 
 from .model import ElectronicBillboard
 
-PREFIX = 'board'
+PREFIX = '/api/board'
 
+add_api = add_handler(PREFIX)
 
-@add_handler(path='list', prefix=PREFIX)
+@add_api(path='list')
 class BoardListHandler(BaseHandler):
 
     def get(self):
@@ -22,7 +23,7 @@ class BoardListHandler(BaseHandler):
         DBUtil.select([ElectronicBillboard, ], filter_list=[])
 
 
-@add_handler(path='info', prefix=PREFIX)
+@add_api(path='info')
 class BoardInfoHandler(BaseHandler):
 
     def get(self):

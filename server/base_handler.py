@@ -13,7 +13,7 @@ import tornado.escape
 
 from .db import DBUtil
 from .model import User
-from .api_util import add_handler
+from .api_util import add_handler, add_api
 from .logger import sys_logger
 
 
@@ -35,7 +35,7 @@ class BaseHandler(tornado.web.RequestHandler, ABC):
         self._json_body_arguments.update(json.loads(self.request.body.decode('utf-8')))
 
 
-@add_handler(path=r'/', prefix='/api')
+@add_api(path=r'/')
 class MainHandler(BaseHandler):
     def data_received(self, chunk: bytes) -> Optional[Awaitable[None]]:
         pass
@@ -48,7 +48,7 @@ class MainHandler(BaseHandler):
         self.write("Hello, " + name)
 
 
-@add_handler(path=r'/logon', prefix='/api')
+@add_api(path=r'/logon')
 class LogonHander(BaseHandler):
 
     def post(self):
@@ -66,7 +66,7 @@ class LogonHander(BaseHandler):
                    '</form></body></html>')
 
 
-@add_handler(path=r'/login', prefix='/api')
+@add_api(path=r'/login')
 class LoginHandler(BaseHandler):
 
     def data_received(self, chunk: bytes) -> Optional[Awaitable[None]]:
@@ -92,7 +92,7 @@ class LoginHandler(BaseHandler):
         self.write("password error")
 
 
-@add_handler(path=r'/about', prefix='/api')
+@add_api(path=r'/about')
 class AboutHandler(BaseHandler):
     def get(self):
         sys_logger.info('about page')

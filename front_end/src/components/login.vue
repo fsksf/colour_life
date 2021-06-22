@@ -4,8 +4,13 @@
     <el-row>
       <el-input v-model="code" placeholder="请输入账号"></el-input>
       <el-input v-model="password" placeholder="请输入账号" show-password></el-input>
+    </el-row>
+    <el-row>
       <el-button type="primary" @click="login()">登录</el-button>
-      <el-button type="success">注册</el-button>
+      <router-link to='/logon'>
+      <!-- 页面跳转 -->
+        <el-button type="success">注册</el-button>
+      </router-link>
     </el-row>
   </div>
 </template>
@@ -30,6 +35,5 @@ export default {
       })
     }
   }
-
 }
 </script>

@@ -30,12 +30,17 @@ class OpenApiDecorate:
         return _api_func
 
 
-def add_handler(path, prefix=None):
-    def wp(handler):
-        if prefix is not None:
-            _path = os.path.join(prefix, path)
-        else:
-            _path = path
-        HANDLERS.append((_path, handler))
-        return handler
-    return wp
+def add_handler(prefix='/'):
+    def warp(path):
+        def wp(handler):
+            if prefix is not None:
+                _path = os.path.join(prefix, path)
+            else:
+                _path = path
+            HANDLERS.append((_path, handler))
+            return handler
+        return wp
+    return warp
+
+
+add_api = add_handler(prefix='/api')
