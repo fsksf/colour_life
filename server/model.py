@@ -18,6 +18,7 @@ class Sex(enum.Enum):
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True, autoincrement=True)
+    code = Column(String(30), comment='登录id')
     name = Column(String(30), comment='昵称')
     password = Column(String(100), comment='密钥')
     phone = Column(String(11), comment='电话')
