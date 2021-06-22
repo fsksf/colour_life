@@ -4,7 +4,6 @@
 @github: https://github.com/fsksf 
 @since: 2021/3/5 11:26 PM
 """
-# -*- coding:utf-8 -*-
 
 
 import os
@@ -14,14 +13,14 @@ import yaml
 from server.utils import ensure_directory, merge_dict
 from server.logger import sys_logger
 
-ROOT_PATH = os.path.dirname(os.path.dirname(__file__))
-MOD_PATH = os.path.join(ROOT_PATH, 'mod')
+ROOT_PATH = os.path.dirname(__file__)
+MOD_PATH = os.path.join(ROOT_PATH, 'apps')
 
 
 class ConfigManager:
     DEFAULT_CONFIG_FILE_NAME = 'config.yml'
     CONFIG_FILE_NAME = 'config.{mod}.yml'
-    TINIGINE_PATH = 'TINIGINE_PATH'
+    COLOUR_LIFE_PATH = 'COLOUR_LIFE_PATH'
 
     def __init__(self, user_config_path=None, mod_name='system'):
         self._mod_name = mod_name
@@ -81,9 +80,9 @@ class ConfigManager:
         """
         用户配置目录. 用于放置数据和配置
         """
-        custom_dir = custom_dir or os.environ.get(cls.TINIGINE_PATH, None)
+        custom_dir = custom_dir or os.environ.get(cls.COLOUR_LIFE_PATH, None)
         if custom_dir is None:
-            custom_dir = os.path.expanduser('~/.tinigine')
+            custom_dir = os.path.expanduser('~/.colour_life')
         ensure_directory(custom_dir)
         return custom_dir
 
@@ -125,3 +124,5 @@ class ConfigManager:
         with open(path, mode='w+') as f:
             yaml.safe_dump(self._config_obj, stream=f)
 
+
+conf = ConfigManager()

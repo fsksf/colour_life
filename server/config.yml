@@ -1,0 +1,4 @@
+db:
+  mysql: "mysql+pymysql://root:@127.0.0.1/colour_life"
+
+log_level: "INFO"

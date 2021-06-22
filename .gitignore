@@ -130,6 +130,7 @@ dmypy.json
 
 .DS_Store
 front_end/node_modules/
+node_modules/
 front_end/dist/
 front_end/npm-debug.log*
 front_end/yarn-debug.log*
@@ -145,3 +146,5 @@ front_end/selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
+
+alembic_dir/versions
